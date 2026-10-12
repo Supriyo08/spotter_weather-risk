@@ -1,0 +1,262 @@
+@media (min-width: 1500px) {
+  main {
+    padding-top: 50px;
+  }
+  .page-heading {
+    margin-bottom: 35px;
+  }
+  .panel {
+    padding: 32px;
+  }
+  .field-grid {
+    gap: 30px 24px;
+  }
+  .scenario {
+    padding: 19px;
+  }
+  .overview-strip {
+    padding: 25px 0;
+  }
+  .risk-explanation {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 200px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .main-shell {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+  main {
+    padding: 30px 26px 0;
+  }
+  .topbar {
+    padding: 0 26px;
+  }
+  .version-tag {
+    display: none;
+  }
+  .calculator {
+    gap: 16px;
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .panel {
+    padding: 22px;
+  }
+  .small-tag {
+    display: none;
+  }
+  .overview-strip {
+    gap: 12px;
+  }
+  .overview-strip p span {
+    font-size: 9px;
+  }
+  .overview-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .field-grid {
+    gap: 25px 14px;
+  }
+  .result-heading {
+    flex-wrap: wrap;
+  }
+  .risk-summary h2 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 960px) {
+  .sidebar {
+    width: 180px;
+  }
+  .main-shell {
+    margin-left: 180px;
+    width: calc(100% - 180px);
+  }
+  .nav-item {
+    font-size: 11px;
+    padding-left: 10px;
+    gap: 9px;
+  }
+  .sidebar-note {
+    margin-left: 8px;
+  }
+  .calculator {
+    grid-template-columns: 1fr;
+  }
+  .result-panel {
+    display: block;
+  }
+  .risk-summary {
+    margin: 20px 0;
+  }
+  .overview-strip {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .overview-strip p span {
+    font-size: 10px;
+  }
+  .scenario {
+    padding: 12px;
+    gap: 8px;
+  }
+  .scenario > svg {
+    display: none;
+  }
+  .scenario strong {
+    font-size: 10px;
+  }
+  .scenario small {
+    font-size: 10px;
+  }
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+  .workspace-bottom {
+    align-items: flex-start;
+  }
+  .section-label {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+}
+@media (max-width: 680px) {
+  .app-shell {
+    display: block;
+  }
+  .sidebar {
+    position: static;
+    width: 100%;
+    padding: 18px 20px 0;
+  }
+  .brand {
+    font-size: 27px;
+    margin: 0 0 18px;
+  }
+  .workspace-label,
+  .sidebar-note,
+  .sidebar-footer {
+    display: none;
+  }
+  .sidebar nav {
+    display: flex;
+    gap: 8px;
+  }
+  .nav-item {
+    justify-content: center;
+    margin: 0 0 12px;
+    padding: 11px 9px;
+    font-size: 10px;
+    white-space: nowrap;
+    gap: 6px;
+  }
+  .nav-item svg {
+    width: 15px;
+  }
+  .nav-indicator {
+    display: none;
+  }
+  .main-shell {
+    margin: 0;
+    width: 100%;
+  }
+  .topbar {
+    height: 53px;
+    padding: 0 20px;
+    font-size: 10px;
+  }
+  .environment {
+    font-size: 8px;
+  }
+  .breadcrumb {
+    gap: 8px;
+  }
+  main {
+    padding: 26px 20px 0;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  .page-heading {
+    margin-bottom: 22px;
+  }
+  .overview-strip {
+    gap: 15px;
+    margin-bottom: 23px;
+  }
+  .scenario-grid {
+    gap: 8px;
+  }
+  .scenario {
+    display: block;
+    padding: 12px 9px;
+  }
+  .scenario-dot {
+    display: block;
+    margin-bottom: 9px;
+  }
+  .scenario strong {
+    line-height: 1.5;
+  }
+  .scenario small {
+    line-height: 1.5;
+  }
+  .section-label > span {
+    font-size: 9px;
+  }
+  .panel {
+    padding: 21px;
+  }
+  .field small {
+    font-size: 10px;
+  }
+  .field-grid {
+    gap: 24px 14px;
+  }
+  .workspace-bottom {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .workspace-bottom p {
+    font-size: 10px;
+  }
+  footer {
+    gap: 15px;
+    font-size: 8px;
+  }
+  footer > span:last-child {
+    max-width: 110px;
+    text-align: right;
+  }
+  .milestone {
+    gap: 15px;
+  }
+  .milestone p {
+    font-size: 11px;
+  }
+  .form-actions {
+    gap: 13px;
+  }
+  .primary-button {
+    font-size: 11px;
+    padding: 14px 12px;
+  }
+  .result-heading {
+    flex-wrap: nowrap;
+  }
+  .risk-summary h2 {
+    font-size: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

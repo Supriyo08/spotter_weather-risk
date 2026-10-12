@@ -1,0 +1,110 @@
+.rules-panel {
+  margin-bottom: 24px;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+}
+th,
+td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e7ecf1;
+}
+thead {
+  background: #f5f8fa;
+  color: #637786;
+}
+th {
+  font-weight: 600;
+}
+.table-note {
+  font-size: 11px;
+  margin-top: 20px;
+}
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+.method-grid p {
+  font-size: 12px;
+  margin-top: 17px;
+}
+.rule-list {
+  padding: 0;
+  list-style: none;
+}
+.rule-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #e8edf0;
+  font-size: 12px;
+}
+.rule-list strong,
+.rule-list span {
+  display: block;
+}
+.rule-list span {
+  margin-top: 6px;
+  color: #798898;
+}
+.ranking-list {
+  padding-left: 20px;
+  font-size: 12px;
+  color: #567266;
+  line-height: 2.3;
+}
+.footnote {
+  font-size: 10px;
+  color: #788796;
+  line-height: 1.7;
+}
+.milestones {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 36px;
+}
+.milestone {
+  display: flex;
+  gap: 24px;
+  padding: 28px;
+}
+.milestone-number {
+  height: 39px;
+  width: 39px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #f0f3f6;
+  flex-shrink: 0;
+  color: #8e9aaa;
+  font-size: 12px;
+}
+.milestone-number.complete {
+  background: #e8f3ed;
+  color: #417c61;
+}
+.status-tag {
+  font-size: 9px;
+  color: #748596;
+  display: inline-block;
+  background: #f0f3f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.status-tag.available {
+  color: #397459;
+  background: #eaf4ee;
+}
+.milestone p {
+  margin: 10px 0;
+  font-size: 12px;
+  max-width: 650px;
+}
