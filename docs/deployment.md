@@ -1,4 +1,18 @@
-# Deploy on Render
+# Deployment
+
+## Railway
+
+1. Create a Railway project from `Supriyo08/spotter_weather-risk`, branch `main`.
+2. Keep the repository root as the service root. Railway uses the Dockerfile and `railway.json`.
+3. Add a unique `DJANGO_SECRET_KEY` as a service variable and set `DJANGO_DEBUG=false`. Do not commit the secret.
+4. Deploy, then generate a public domain under service networking.
+5. Verify `/api/health/` and test the three scenarios at the public HTTPS URL.
+
+The app uses Railway’s assigned `PORT`, trusts its HTTPS proxy when `RAILWAY_ENVIRONMENT_ID` is present, and includes `RAILWAY_PUBLIC_DOMAIN` in allowed hosts. The internal health-check hostname is also allowed. Only `/api/health/` is exempt from HTTPS redirects so internal startup checks can succeed.
+
+See [Railway Dockerfiles](https://docs.railway.com/builds/dockerfiles) and [health checks](https://docs.railway.com/deployments/healthchecks).
+
+## Render
 
 The root `render.yaml` defines one free Docker web service. A multi-stage Docker build compiles React and runs Django under Gunicorn. WhiteNoise serves the frontend build from the same origin as `/api`, so no CORS configuration or separate frontend hosting is required.
 

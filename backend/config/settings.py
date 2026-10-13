@@ -16,12 +16,19 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split("
 RENDER_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_HOSTNAME)
+RAILWAY_HOSTNAME = os.getenv("RAILWAY_PUBLIC_DOMAIN")
+ON_RAILWAY = bool(os.getenv("RAILWAY_ENVIRONMENT_ID"))
+if RAILWAY_HOSTNAME:
+    ALLOWED_HOSTS.append(RAILWAY_HOSTNAME)
+if ON_RAILWAY:
+    ALLOWED_HOSTS.append("healthcheck.railway.app")
 if not DEBUG and SECRET_KEY == "local-development-only":
     raise ImproperlyConfigured("Production requires a unique DJANGO_SECRET_KEY.")
 
 SECURE_SSL_REDIRECT = os.getenv("DJANGO_SECURE_SSL_REDIRECT", str(not DEBUG)).lower() == "true"
-if os.getenv("RENDER") == "true":
+if os.getenv("RENDER") == "true" or ON_RAILWAY:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_REDIRECT_EXEMPT = [r"^api/health/$"]
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0

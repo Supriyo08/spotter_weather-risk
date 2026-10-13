@@ -21,9 +21,14 @@ class ProductionServingTests(SimpleTestCase):
 
     @override_settings(DEBUG=False, SECURE_SSL_REDIRECT=True)
     def test_production_redirects_http_to_https(self):
-        response = self.client.get("/api/health/")
+        response = self.client.get("/api/risk/evaluate/")
         self.assertEqual(response.status_code, 301)
-        self.assertEqual(response["Location"], "https://testserver/api/health/")
+        self.assertEqual(response["Location"], "https://testserver/api/risk/evaluate/")
+
+    @override_settings(DEBUG=False, SECURE_SSL_REDIRECT=True)
+    def test_internal_healthcheck_does_not_redirect(self):
+        response = self.client.get("/api/health/")
+        self.assertEqual(response.status_code, 200)
 
     @override_settings(DEBUG=False, SECURE_SSL_REDIRECT=True)
     def test_https_api_remains_available(self):

@@ -122,4 +122,4 @@ Framework references: [Vite setup](https://vite.dev/guide/), [Django compatibili
 
 ## Deployment
 
-The project includes a Dockerfile and Render Blueprint for a single service. See [deployment instructions](docs/deployment.md) for setup, environment variables, and verification.
+The project includes a Dockerfile, Railway configuration, and Render Blueprint for a single service. See [deployment instructions](docs/deployment.md) for setup, environment variables, and verification.
