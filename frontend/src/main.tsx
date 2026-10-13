@@ -5,6 +5,7 @@ import './app/styles.css';
 import './features/risk/risk.css';
 import './features/project/project.css';
 import './app/responsive.css';
+import './features/planner/planner.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

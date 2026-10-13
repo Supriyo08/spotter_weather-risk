@@ -1,6 +1,5 @@
 export class ApiError extends Error {
   fields: Record<string, string[]>;
-
   constructor(message: string, fields: Record<string, string[]> = {}) {
     super(message);
     this.name = 'ApiError';
@@ -8,29 +7,54 @@ export class ApiError extends Error {
   }
 }
 
-export async function postJson<T>(path: string, body: unknown): Promise<T> {
+async function requestJson<T>(
+  path: string,
+  init: RequestInit,
+  timeout: number,
+): Promise<T> {
   let response: Response;
   try {
     response = await fetch(`/api${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      signal: AbortSignal.timeout(10_000),
+      ...init,
+      signal: AbortSignal.timeout(timeout),
     });
   } catch {
     throw new ApiError(
-      'Could not reach the API. Check that the Django server is running.',
+      'The request timed out or the connection was interrupted. Please try again.',
     );
   }
-
   if (!response.ok) {
-    if (response.status === 400) {
-      const fields = await response.json();
-      throw new ApiError('Please check the highlighted values.', fields);
-    }
+    const data = await response.json().catch(() => ({}));
+    const fields = Object.fromEntries(
+      Object.entries(data).filter(([, value]) => Array.isArray(value)),
+    ) as Record<string, string[]>;
+    const detail = typeof data.detail === 'string' ? data.detail : undefined;
     throw new ApiError(
-      'The API could not complete the request. Please try again.',
+      detail ??
+        (response.status === 400
+          ? 'Please check your trip details and try again.'
+          : 'The service could not complete the request. Please try again.'),
+      fields,
     );
   }
   return response.json() as Promise<T>;
+}
+
+export function postJson<T>(
+  path: string,
+  body: unknown,
+  timeout = 10_000,
+): Promise<T> {
+  return requestJson<T>(
+    path,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    },
+    timeout,
+  );
+}
+export function getJson<T>(path: string): Promise<T> {
+  return requestJson<T>(path, { method: 'GET' }, 20_000);
 }

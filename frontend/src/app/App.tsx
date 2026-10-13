@@ -1,9 +1,11 @@
+import { TripPlanner } from '../features/planner/components/TripPlanner';
 import { useState } from 'react';
 import { Icon } from '../components/Icon';
 import { RiskCalculator } from '../features/risk/components/RiskCalculator';
 import { ProjectOverview } from '../features/project/ProjectOverview';
 
 const pages = [
+  { id: 'planner', label: 'Trip planner', icon: 'route' },
   { id: 'workspace', label: 'Risk workspace', icon: 'grid' },
   { id: 'methodology', label: 'Risk methodology', icon: 'book' },
   { id: 'roadmap', label: 'Build roadmap', icon: 'route' },
@@ -11,7 +13,7 @@ const pages = [
 export type Page = (typeof pages)[number]['id'];
 
 export function App() {
-  const [page, setPage] = useState<Page>('workspace');
+  const [page, setPage] = useState<Page>('planner');
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">
@@ -70,11 +72,15 @@ export function App() {
           </div>
           <span className="environment">
             <span />
-            Manual scenario mode
+            {page === 'planner'
+              ? 'Live route forecasts'
+              : 'Risk analysis workspace'}
           </span>
         </header>
         <main id="main" tabIndex={-1}>
-          {page === 'workspace' ? (
+          {page === 'planner' ? (
+            <TripPlanner />
+          ) : page === 'workspace' ? (
             <>
               <div className="page-heading">
                 <div>
@@ -121,8 +127,9 @@ export function App() {
                   <Icon name="info" size={18} />
                   <p>
                     <strong>A focused first milestone.</strong> This workspace
-                    evaluates manual scenarios. Live routes, forecasts, and the
-                    map are coming next.
+                    evaluates manual scenarios. Open Trip planner for live
+                    routes and forecasts. The map and heatmap are the next
+                    milestone.
                   </p>
                 </div>
                 <button

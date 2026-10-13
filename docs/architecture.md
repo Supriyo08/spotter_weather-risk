@@ -6,17 +6,17 @@ Keep business rules independent of the web framework. A request flows from a URL
 
 `apps/routing` owns the routing use case. `services/risk.py` accepts typed weather values and a load weight. `services/recommendation.py` accepts already assessed route segments. Both can run without a Django server or database.
 
-When live data is introduced, add provider adapters under `apps/routing/providers/`, such as `geocoding.py`, `routing.py`, and `weather.py`. Convert external responses to project data types there. Keep API keys, HTTP timeouts, provider-specific units, and errors inside those adapters. Do not add abstract base classes until multiple implementations need them.
+Provider adapters under `apps/routing/providers/` normalize geocoding, route geometry and segment timing, and hourly weather. The HTTP helper owns timeouts, caching, and provider errors. No abstract provider hierarchy is needed while each service has one implementation.
 
-Add checkpoint geometry and ETA interpolation in `services/checkpoints.py`. A `services/planning.py` module can then coordinate geocoding, routing, sampling, forecasts, and risk assessment. Keep Django views thin. These modules are planned; no empty placeholder files are needed yet.
+`services/checkpoints.py` interpolates coordinates and elapsed time along road segments. `services/planning.py` orchestrates routing, sampling, forecasts, assessment, and ranking. Missing forecasts exclude a route; each interval uses the worse risk of its endpoints. The HTTP views validate requests and translate provider failures to 503 responses.
 
 ## Frontend
 
 Organize code by feature. Each feature owns its components, types, and API functions. Put shared infrastructure in `lib/` and the application shell in `app/`. Extract shared UI components only once multiple features use them.
 
-React displays risk decisions returned by Django. Do not duplicate the scoring algorithm in TypeScript. The current calculator uses manual input; the future trip planner will obtain forecasts through the backend.
+React displays risk decisions returned by Django. Do not duplicate the scoring algorithm in TypeScript. The risk calculator uses manual inputs; the trip planner obtains live routes and forecasts through the backend.
 
-Use local component state first. Introduce a query/cache library when live routes and weather introduce repeated asynchronous requests. No global state manager is needed for the starter.
+Use local component state first. City searches discard stale responses; trip fields are disabled during planning and edits clear previous results. Introduce a query/cache library if client-side request reuse becomes necessary. No global state manager is needed for the starter.
 
 ## Conventions
 

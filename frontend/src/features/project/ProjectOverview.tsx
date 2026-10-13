@@ -22,14 +22,14 @@ const milestones = [
   },
   {
     title: 'Route discovery & checkpoint sampling',
-    status: 'Next milestone',
+    status: 'Available',
     description:
-      'Origin, destination, and departure inputs. Compare three distinct route alternatives with checkpoints every 10, 25, or 50 miles.',
+      'Origin, destination, and departure inputs. Request up to three distinct route alternatives with checkpoints every 10, 25, or 50 miles.',
     items: 'Geocoding · Route geometry · Arrival-time estimates',
   },
   {
     title: 'Forecasts & route recommendations',
-    status: 'Planned',
+    status: 'Available',
     description:
       'Match checkpoint arrival times to weather forecasts, then rank routes by exposure and travel time.',
     items: 'Forecast integration · Missing-data handling · Route summaries',
@@ -135,7 +135,7 @@ export function ProjectOverview({ page }: { page: 'methodology' | 'roadmap' }) {
               </ul>
             </section>
             <section className="panel">
-              <h2>How routes will be ranked</h2>
+              <h2>How routes are ranked</h2>
               <p>
                 Exclude any route with a No Travel segment, then compare in this
                 order:
@@ -147,7 +147,8 @@ export function ProjectOverview({ page }: { page: 'methodology' | 'roadmap' }) {
                 <li>Shortest travel time</li>
               </ol>
               <span className="footnote">
-                Ranking logic is implemented; live route integration is planned.
+                Live routes with incomplete forecasts are excluded. Travel
+                estimates do not include truck restrictions or rest breaks.
               </span>
             </section>
           </div>
@@ -157,13 +158,17 @@ export function ProjectOverview({ page }: { page: 'methodology' | 'roadmap' }) {
           {milestones.map((milestone, index) => (
             <article className="panel milestone" key={milestone.title}>
               <span
-                className={`milestone-number ${index === 0 ? 'complete' : ''}`}
+                className={`milestone-number ${milestone.status === 'Available' ? 'complete' : ''}`}
               >
-                {index === 0 ? <Icon name="check" /> : `0${index + 1}`}
+                {milestone.status === 'Available' ? (
+                  <Icon name="check" />
+                ) : (
+                  `0${index + 1}`
+                )}
               </span>
               <div>
                 <span
-                  className={`status-tag ${index === 0 ? 'available' : ''}`}
+                  className={`status-tag ${milestone.status === 'Available' ? 'available' : ''}`}
                 >
                   {milestone.status}
                 </span>

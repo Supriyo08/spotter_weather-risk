@@ -1,29 +1,25 @@
-# Build order
+# Implementation status
 
-## 1. Trip input and routing
+## Completed: trip input and routing
 
-Add origin, destination, departure time, load weight, and 10/25/50-mile spacing inputs. Send timezone-aware departure timestamps to a new planning endpoint. Select geocoding and routing providers after checking their coverage, quotas, and alternative-route support.
+City selection via Open-Meteo geocoding, timezone-aware departure, load weight, and 10/25/50-mile spacing. OSRM requests a primary route and two alternatives, preserves road geometry and timing, and reports fewer routes honestly.
 
-Completion check: return three genuinely distinct alternatives when the provider supports them; clearly report fewer alternatives rather than duplicating routes. Preserve geometry, distances, and segment travel times.
+## Completed: checkpoints and weather
 
-## 2. Checkpoints and weather
+Distance sampling includes origin and destination. ETAs use accumulated road-segment travel times. Batched forecasts use the hourly interval containing each arrival, with explicit units and missing-data handling. Tests cover geometry, timing, partial intervals, zero-distance edges, forecast boundaries, outages, and route eligibility.
 
-Sample along road geometry at the selected mile interval, including the origin and destination. Calculate checkpoint ETAs from accumulated route travel time. Fetch the forecast covering each ETA, convert units explicitly, and apply the existing risk service.
+## Completed: comparison and recommendation
 
-Completion check: test a short route, a partial final segment, different spacing choices, timezone offsets, and an arrival beyond the forecast horizon. Missing forecasts are unavailable data, not Low risk. Define and document how checkpoint readings assign risk to the intervening road segments before calling `summarize_route`.
+Selectable route cards show distance, time, exposure, and ranking. A checkpoint table shows ETA, forecast time, conditions, cargo adjustments, and risk. No Travel and incomplete routes cannot win.
 
-## 3. Map and recommendation
+## Next: interactive route map
 
-Render route lines, checkpoints, ETAs, risk levels, and summaries. Use the existing ranking service after weather has been assigned to route segments. Make the recommended route easy to identify and allow selection of every alternative.
+Render returned route geometry, checkpoint markers, risk colors, and selected-route emphasis. Synchronize map selection with comparison cards and the weather table. Verify mobile interaction and keyboard access.
 
-Completion check: No Travel routes cannot win. All-blocked and missing-weather cases have explicit UI states. Ranking follows the brief's priority order rather than an arbitrary weighted score.
+## Next: corridor heatmap
 
-## 4. Corridor heatmap
+Sample a bounded spatial grid around the corridor and display hourly forecasts from hour 0 through 48. Cache the forecast set, distinguish unavailable data, and keep exploratory slider times separate from route arrival-time assessment.
 
-Sample a spatial grid around the trip corridor and display forecast weather from hour 0 through 48. Bound sample counts, cache provider results, and avoid making a new request for every slider movement.
+## Later: operational readiness
 
-Completion check: hour changes update the weather layer smoothly. Display the selected forecast time and weather legend, and distinguish missing data from low values. Keep departure-time route assessments distinct from the exploratory forecast slider.
-
-## 5. Delivery
-
-Add integration tests with recorded provider fixtures, responsive map checks, production hosting configuration, and deployment instructions. Publish to GitHub and a hosting provider when requested, then record the 5–10 minute walkthrough described in the brief.
+Use production provider agreements or self-hosted routing, shared caching and rate limits, observability, and saved trips if required. Truck-aware routing requires a provider with restriction data; current road-driving estimates are an explicit limitation.
